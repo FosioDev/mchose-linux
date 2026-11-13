@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=Mouse
+Name=MCHOSE
 Comment=Configure the MCHOSE mouse
 Exec=mchose-gui
 Icon=mchose

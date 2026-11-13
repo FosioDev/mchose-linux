@@ -16,6 +16,38 @@ page.*
 
 </div>
 
+## Installation on NixOS
+
+1. Add the following to your system `flake.nix` inputs:
+```diff
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
++   mchose = {
++     url = "github:fosiodev/mchose-linux";
++     inputs.nixpkgs.follows = "nixpkgs";
++   };
+  };
+
+  outputs = { self, nixpkgs, ... }@inputs: {
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ./configuration.nix
++       inputs.mchose.nixosModules.default
+      ];
+    };
+  };
+}
+```
+
+2. Add `services.mchose` to your `configuration.nix`:
+```diff
+{
++ services.mchose.enable = true;
+}
+```
+
 ## Why this exists
 
 MCHOSE ships a Windows-only driver and a WebHID page called **M HUB**. There is
